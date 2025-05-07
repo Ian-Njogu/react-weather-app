@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function FetchWeather() {
-    const apiKey = "fe68ed87f0de9121280983afdb6f81f3"
+    
     const [data, setData] = useState(null)
     const [query, setQuery] = useState('') //sets the location the user enters
 
     
         const fetchData = async (loc) => {
         try {
-            const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${loc}&appid=${apiKey}&units=metric`)
+            const apiKey = import.meta.env.VITE_API_KEY;
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await axios.get(`${apiUrl}?q=${loc}&appid=${apiKey}&units=metric`)
             setData(response.data)
             console.log(response)
         } catch (error) {
